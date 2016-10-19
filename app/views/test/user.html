@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>  	
+  </head>
+
+  <body> 
+  
+      <form action="/users_controller" method="get" id="serachform" style="height: 100px; width: 800px; position: absolute;  top: 15%;  left: 30% ; ">
+          <input id="searchuser" name="username" type="text"  style="width:550px; height:40px;  border:1px solid black;  float:left"/>
+          <input name="commit" type="submit" value="Search By Username" style=" width:200px; height:40px; border:1px solid black; float:left"/>
+      </form>
+      
+
+   <div class="usertable" style="width:100%; position: absolute;  top: 25%;  left: 30% ;">
+        <h1 style="float:left">
+           CSOS Logins 
+        </h1>
+           <p style="font:30px; ">
+             Username
+           </p>
+
+         <table class="table">
+              <tr>
+                <th>Client id</th>
+                <th>Version</th>
+                <th>Date</th>
+                <th>Site</th>
+                <th>
+                  <span class="glyphicon glyphicon-list-alt"></span>
+                </th>
+              </tr>
+              <% @sites.each do |s| %>
+                <tr>
+                  <td>
+                    <%= s.id %>
+                  </td>
+                  <td>
+                    <%= s.version %>
+                  </td>
+                  <td>
+                    <%= s.date %>
+                  </td>
+                  <td>
+                    <%= s.sites %>
+                  </td>
+                  <td>
+                    <%= link_to "details", "/sites/#{s.id}" %>
+                  </td>
+                </tr>
+              <% end %>
+        </table>
+
+   </div>
+
+  </body>
+</html>

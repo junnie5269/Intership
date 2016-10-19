@@ -1,0 +1,21 @@
+<tr class="<%= row_color %>">
+  <td>
+    <%= client.id %>
+  </td>
+  <td>
+    <%= client.version   %>
+    <% if client.preview? %>
+      <span class="label label-info">preview</span>
+    <% end %>
+  </td>
+  <td>
+    <%= client.last_username %>
+    <span class="label label-default">
+      <%= time_ago_in_words(client.audit_update_date) %>
+      ago
+    </span>
+  </td>
+  <td>
+    <%= link_to "details", "/clients/#{client.id}" %>
+  </td>
+</tr>

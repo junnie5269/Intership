@@ -1,0 +1,87 @@
+.page-header
+  %h1 
+    = @clients.map{ |c| c.owner }.uniq.join(", ")
+    %small
+      Site:
+      = params[:id]
+
+%table.table
+  %tr
+    %th 
+      Version
+      %span.glyphicon.glyphicon-sort-by-order
+    %th 
+      Clients
+      %span.glyphicon.glyphicon-hdd
+  - @clients.map { |c| c.version }.uniq.sort.each do |v|
+    %tr
+      %td
+        = v
+      %td  
+        = @clients.select { |c| c.version.eql? v}.count
+
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      Version Distribution
+    - color = ["success", "info", "warning", "danger"]
+  .panel-body
+    .progress
+      - @clients.map { |c| c.version }.uniq.sort.reverse.each_with_index do |v,i|
+        - ct = @clients.select { |c| c.version.eql? v}.count
+        - pct = (100 *  ct) / @clients.size
+        .progress-bar{ class: "progress-bar-#{color[i % color.count]}",style: "width:#{pct}%"}
+          ="#{v}"
+
+ 
+- preview = @clients.select{ |x| x.preview?}
+- prod = @clients.reject{ |x| x.preview?}
+
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      Preview Distribution
+  .panel-body
+    = render "percent", percent: (100 * preview.count  / ( preview.count + prod.count ))
+
+%table.table
+  %tr
+    %th
+      Client Id
+      %span.glyphicon.glyphicon-barcode
+    %th 
+      Version
+      %span.glyphicon.glyphicon-sound-5-1
+    %th 
+      Last User
+      %span.glyphicon.glyphicon-user
+    %th
+      %span.glyphicon.glyphicon-list-alt
+  %tr 
+    %th 
+      Preview Machines
+      %span.badge
+        = preview.count
+    %th 
+    %th 
+    %th 
+  - preview.sort{ |x,y| y.audit_update_date <=> x.audit_update_date}.each do |c|
+    - if c.version < @clients.map { |v| v.version}.max 
+      = render "client_row", client: c, row_color: "warning"
+    - else
+      = render "client_row", client: c, row_color: "info"
+ 
+  %tr
+    %th 
+      Release Machines
+      %span.badge
+        = prod.count
+    %th 
+    %th 
+    %th 
+  - prod.sort{ |x,y| y.audit_update_date <=> x.audit_update_date}.each do |c|
+    - if c.version < @clients.map { |v| v.version}.max 
+      = render "client_row", client: c, row_color: "warning"
+    - else
+      = render "client_row", client: c, row_color: ""
+      

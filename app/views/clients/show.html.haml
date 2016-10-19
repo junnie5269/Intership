@@ -1,0 +1,89 @@
+.page-header
+  %h1 
+    = params[:id]
+
+%dl.dl-horizontal
+  %dt Client Id 
+  %dd
+    = @client.id
+  %dt App Id 
+  %dd
+    = @client.app_id
+  %dt Current Version
+  %dd
+    = @client.version
+  %dt Last User
+  %dd
+    = @client.last_username
+    %span.badge
+      = @client.last_logged_in_identity
+  %dt Owner
+  %dd
+    = @client.owner
+  %dt Site
+  %dd
+    = @client.site
+  %dt Last Update from Client
+  %dd
+    = localize @client.audit_update_date, format: :long
+    %span.label.label-info
+      = time_ago_in_words(@client.audit_update_date)
+      ago
+
+%h2 Last 10 logins
+%table.table
+  %tr
+    %th
+      Date
+      %span.glyphicon.glyphicon-calendar
+    %th
+      User
+      %span.glyphicon.glyphicon-user
+    %th
+      Owner
+  - @audit_logins.each do |a|
+    %tr
+      %td
+        = localize a.createddate, format: :long
+        %span.badge
+          = time_ago_in_words a.createddate
+          ago
+      %td
+        = a.username
+      %td
+        = a.owner
+
+%h2 Update Audit
+%table.table
+  %tr
+    %th
+      Date
+      %span.glyphicon.glyphicon-calendar
+  - @audit_updates.each do |a|
+    %tr
+      %td
+        = localize a.createddate, format: :long
+        %span.badge
+          = time_ago_in_words a.createddate
+          ago
+      %td
+        = a.eventtype
+      %td
+        = a.eventresult
+      %td 
+        = a.version
+
+.panel-group
+  - @s3objs.map{ |s3| s3.key.split('/')[-2] }.uniq.reverse.each do |event|
+    .panel.panel-default
+      .panel-heading
+        %h4.panel-title
+          %a
+            = event
+      .panel-collapse
+        %ul.list-group        
+          - @s3objs.select{ |s3| s3.key.split('/')[-2].eql? event}.each do |s3|
+            %li.list-group-item
+              = link_to s3.key.split('/')[-1], s3.key
+
+

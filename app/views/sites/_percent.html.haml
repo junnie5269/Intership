@@ -1,0 +1,16 @@
+.progress
+  - if percent.eql? 0
+    .progress-bar.progress-bar-danger.progress-bar-striped{ class: "",style: "width:100%"}="0% Contact Owner"
+  - elsif percent < 5 
+    .progress-bar.progress-bar-danger{ class: "",style: "width:#{5}%"}="< 5%"
+    .progress-bar{ class: "",style: "width:95%"}="#{95}% (Release)"
+  - elsif percent > 15
+    .progress-bar.progress-bar-danger{ class: "",style: "width:#{percent}%"}="#{percent}%"
+    .progress-bar{ class: "",style: "width:#{100 - percent}%"}="#{100-percent}% (Release)"
+  - elsif percent > 10
+    .progress-bar.progress-bar-warning{ class: "",style: "width:#{percent}%"}="#{percent}%"
+    .progress-bar{ class: "",style: "width:#{100 - percent}%"}="#{100-percent}% (Release)"
+  - else 
+    .progress-bar.progress-bar-success{ class: "",style: "width:#{percent}%"}="#{percent}%"
+    .progress-bar{ class: "",style: "width:#{100 - percent}%"}="#{100-percent}% (Release)"
+

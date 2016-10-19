@@ -1,0 +1,9 @@
+.page-header
+  %h1 
+    = params[:file]
+  %h2
+    = params[:event]
+    %small
+      = params[:id]
+
+%pre= @object.body.read

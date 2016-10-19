@@ -1,0 +1,35 @@
+<div class="progress">
+  <% if percent.eql? 0 %>
+    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width:100%">
+      <%= "0% Contact Owner" %>
+    </div>
+  <% elsif percent < 5  %>
+    <div class="progress-bar progress-bar-danger" style="width:<%= 5 %>%">
+      <%= "< 5%" %>
+    </div>
+    <div class="progress-bar" style="width:95%">
+      <%= "#{95}% (Release)" %>
+    </div>
+  <% elsif percent > 15 %>
+    <div class="progress-bar progress-bar-danger" style="width:<%= percent %>%">
+      <%= "#{percent}%" %>
+    </div>
+    <div class="progress-bar" style="width:<%= 100 - percent %>%">
+      <%= "#{100-percent}% (Release)" %>
+    </div>
+  <% elsif percent > 10 %>
+    <div class="progress-bar progress-bar-warning" style="width:<%= percent %>%">
+      <%= "#{percent}%" %>
+    </div>
+    <div class="progress-bar" style="width:<%= 100 - percent %>%">
+      <%= "#{100-percent}% (Release)" %>
+    </div>
+  <% else  %>
+    <div class="progress-bar progress-bar-success" style="width:<%= percent %>%">
+      <%= "#{percent}%" %>
+    </div>
+    <div class="progress-bar" style="width:<%= 100 - percent %>%">
+      <%= "#{100-percent}% (Release)" %>
+    </div>
+  <% end %>
+</div>

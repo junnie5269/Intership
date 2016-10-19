@@ -1,0 +1,12 @@
+%h1 Global Statistics
+%h2 Last 24 hours
+%table.table
+  %tr
+    %th Version
+    %th Count
+  - @versions.reject{ |v| v.version.nil? }.each do |v|
+    %tr
+      %td
+        = v.version
+      %td    
+        = v.count

@@ -1,0 +1,29 @@
+
+<div class="page-header">
+  <h1>
+     CSOS Sites
+    <small>Clients per site </small>
+  </h1>
+</div>
+<table class="table">
+  <tr>
+    <th>Site</th>
+    <th>Clients </th>
+    <th>
+      <span class="glyphicon glyphicon-list-alt"></span>
+    </th>
+  </tr>
+  <% @sites.each do |s| %>
+    <tr>
+      <td>
+        <%= s.id %>
+      </td>
+      <td>
+        <%= s.clients %>
+      </td>
+      <td>
+        <%= link_to "details", "/sites/#{s.id}" %>
+      </td>
+    </tr>
+  <% end %>
+</table>

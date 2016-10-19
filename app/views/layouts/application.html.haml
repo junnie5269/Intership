@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title Murdoch
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-default
+      .container-fluid   
+        .navbar-header
+          %a.navbar-brand{ :href => "/"}
+            %span.glyphicon.glyphicon-search
+            Murdoch
+        %ul.nav.navbar-nav
+          %li
+            %a{ :href => sites_path }
+              %span.glyphicon.glyphicon-globe
+              Sites
+          %li
+            %a{ :href => users_path}
+              %span.glyphicon.glyphicon-globe
+              Users
+
+    .container
+      = yield

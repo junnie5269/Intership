@@ -1,0 +1,30 @@
+%form#serachform{:action => "/users/show", :method => "get", :style => "height: 100px; width: 800px; position: absolute;  top: 15%;  left: 24% ; "}
+  %input#searchuser{:name => "username", :style => "width:550px; height:40px;  border:1px solid black;  float:left", :type => "text"}/
+  %input{ :style => " width:200px; height:40px; border:1px solid black; float:left", :type => "submit", :value => "Search By Username"}/
+
+    
+.usertable{:style => "width:90%; position: absolute; top: 25%; left:5%;"}
+  %h1
+    CSOS Logins :     
+    = params[:username] 
+
+  %table.table
+    %tr
+      %th Client id
+      %th Version
+      %th Date
+      %th Site
+      %th
+        %span.glyphicon.glyphicon-list-alt
+    - @users.each do |u|
+      %tr
+        %td
+          = u.id
+        %td
+          = u.version
+        %td
+          = u.audit_update_date
+        %td
+          = u.site
+        %td
+          = link_to "details", "/clients/#{u.id}"
